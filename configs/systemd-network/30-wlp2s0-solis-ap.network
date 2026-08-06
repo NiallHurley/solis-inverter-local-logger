@@ -1,0 +1,8 @@
+[Match]
+Name=wlp2s0
+
+[Network]
+Address=10.44.0.1/24
+ConfigureWithoutCarrier=yes
+IPv6AcceptRA=no
+LinkLocalAddressing=no

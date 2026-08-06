@@ -1,0 +1,14 @@
+[Unit]
+Description=Solis Wi-Fi hotspot
+After=network-online.target
+Wants=network-online.target
+Before=solis-logger-to-sqlite.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/lib/solis-hotspot/solis-hotspot-start.sh
+ExecStop=/usr/local/lib/solis-hotspot/solis-hotspot-stop.sh
+
+[Install]
+WantedBy=multi-user.target

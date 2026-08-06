@@ -1,0 +1,19 @@
+[Unit]
+Description=Solis logger listener to SQLite
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=SOLIS_LISTEN_HOST=0.0.0.0
+Environment=SOLIS_LISTEN_PORT=9999
+Environment=SOLIS_DB_PATH=/var/lib/solis-logger/solis_inverter.sqlite3
+Environment=SOLIS_MQTT_ENABLED=1
+Environment=SOLIS_MQTT_TOPIC_PREFIX=solis/inverter
+Environment=SOLIS_MQTT_DOCKER_CONTAINER=mosquitto
+ExecStart=/usr/bin/python3 /usr/local/lib/solis-logger/solis_logger_to_sqlite.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
