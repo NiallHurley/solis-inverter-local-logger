@@ -16,6 +16,18 @@ Some older inverter Wi-Fi sticks are awkward to integrate locally but will happi
 4. `src/solis_logger_to_sqlite.py` decodes the packets.
 5. Decoded values are stored in SQLite for local dashboards, exporters, or further automation.
 
+## Packet Flow
+
+```text
+Solis inverter
+  -> Wi-Fi datalogger
+  -> 2.4 GHz AP on Linux host
+  -> TCP packets to :9999
+  -> solis_logger_to_sqlite.py
+  -> SQLite
+  -> dashboards / MQTT / automation
+```
+
 ## Repository layout
 
 - `src/`: packet listener and SQLite writer
@@ -25,7 +37,7 @@ Some older inverter Wi-Fi sticks are awkward to integrate locally but will happi
 - `systemd/`: example unit files
 - `docs/`: architecture and rebuild notes
 
-## Quick start
+## Quick Start
 
 1. Review and customize:
    - `configs/hostapd/hostapd.conf`
@@ -35,8 +47,13 @@ Some older inverter Wi-Fi sticks are awkward to integrate locally but will happi
    - `sudo ./scripts/install/install-solis-hotspot-service.sh`
 3. Install the logger service:
    - `sudo ./scripts/install/install-solis-logger-to-sqlite.sh`
-4. Point your Solis/Ginlong datalogger at the host running this project.
-5. Verify data is being written to SQLite.
+4. Start the services:
+   - `sudo systemctl start solis-hotspot.service`
+   - `sudo systemctl start solis-logger-to-sqlite.service`
+5. Point your Solis/Ginlong datalogger at the host running this project.
+6. Verify data is being written to SQLite:
+   - `sudo /usr/local/lib/solis-hotspot/solis-hotspot-status.sh`
+   - `sqlite3 /var/lib/solis-logger/solis_inverter.sqlite3 "select max(received_at), count(*) from inverter_packets;"`
 
 ## Default assumptions
 
