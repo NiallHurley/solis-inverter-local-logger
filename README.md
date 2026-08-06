@@ -63,3 +63,11 @@ These are examples, not requirements:
 - The hotspot side is designed to avoid fighting with an existing DNS service by using `dnsmasq` in DHCP-only mode.
 
 See `docs/ARCHITECTURE.md`, `docs/RECREATE.md`, and `docs/PROTOCOL-NOTES.md`.
+
+## License
+
+MIT. See `LICENSE`.
+
+## Suggested GitHub Topics
+
+`solis`, `ginlong`, `solar`, `inverter`, `wifi-hotspot`, `sqlite`, `systemd`, `homelab`
